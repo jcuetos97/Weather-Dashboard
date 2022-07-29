@@ -1,30 +1,58 @@
 var citynameInput = document.querySelector('#city');
 var weatherForm = document.querySelector('#weather-form');
 var weatherCity = document.querySelector('#cityweather');
+var storedCities = document.querySelector('#storedCities');
 
+let cities = [];
+const APIKey = "8b3db50a4a4c1622c64a0fa5c6659875";
 
 var formSubmitHandler = function (event) {
     event.preventDefault();
-    console.log(citynameInput);
-    var cityname = citynameInput.value.trim();
-    
-    if (cityname) {
-      getWeather(cityname);
-      citynameInput.value = '';
-    } else {
-      alert('Please enter the name of a city');
-    }
-  };
+ 
+    let cityname = citynameInput.value.trim().toUpperCase();
+    console.log(cities);
+    getWeather(cityname);  
+    cities.push(cityname);
 
-  const APIKey = "8b3db50a4a4c1622c64a0fa5c6659875";
-  
-  function getWeather (cityname) {
+    if (cityname) {
+        citynameInput.value = '';
+      } else {
+        alert('Please enter the name of a city');
+      }
+    
+    renderHistory();
+    storeCities();   
+};
+
+// Rendering search history
+function renderHistory() {
+    storedCities.innerHTML = "";  
+    for (var i = 0; i < cities.length; i++){
+        var city = cities[i];
+        li = document.createElement("li");
+        li.textContent = city;
+        li.setAttribute("data-index", i);
+        storedCities.appendChild(li);
+    }
+    console.log(cities);
+}  
+
+function storeCities() {
+    localStorage.setItem("City", JSON.stringify(cities));
+}
+
+var sCities = JSON.parse(localStorage.getItem("City"));
+    if (sCities !== null) {
+    cities = sCities;
+}
+
+function getWeather (cityname) {
     var cityapiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityname +"&appid=" + APIKey;
     fetch(cityapiUrl)
     .then(function (response) {
         if (response.ok) {
         response.json().then(function (data) {
-          displayCities(data, cityname);
+          displayCities(data);
         });
       } else {
         alert('Error: ' + response.statusText);
@@ -35,7 +63,7 @@ var formSubmitHandler = function (event) {
     });
 };
  
-function displayCities (data, cityname) {
+function displayCities (data) {
 
     weatherCity.classList.remove("d-none");
     let lat = data.coord.lat;
@@ -46,7 +74,7 @@ function displayCities (data, cityname) {
     .then(function (response) {
         if (response.ok) {
         response.json().then(function (data) {
-        document.getElementById("City").textContent= cityname;
+        document.getElementById("cityname").textContent= data.name;
         document.getElementById("Temp").textContent= "Temperature: " + data.main.temp + " °C";
         document.getElementById("Wind").textContent= "Wind: " + data.wind.speed + " meter/sec";
         document.getElementById("Humidity").textContent= "Humidity: " + data.main.humidity + " %";
@@ -62,7 +90,7 @@ function displayCities (data, cityname) {
 
 }
         
-    
+// Function call when clicking "Search" button
 weatherForm.addEventListener('submit', formSubmitHandler);
     
     

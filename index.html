@@ -16,14 +16,19 @@
     </header>
 
     <section class="row d-flex">
-        <form class="col-md-3 m-4" id="weather-form">
-            <label class="form-label" for="cityname">Search for a city:</label>
-            <input class="w-100 form-input" type="text" id="city" name="city" placeholder="Search...">
-            <button type="submit" class="w-100 btn btn-primary mt-3">Search</button>
-        </form>
+        <div class="col-md-3 m-4">
+            <form  id="weather-form">
+                <label class="form-label" for="cityname">Search for a city:</label>
+                <input class="w-100 form-input" type="text" id="city" name="city" placeholder="Search...">
+                <button type="submit" class="w-100 btn btn-primary mt-3">Search</button>
+            </form>
+            <ul id="storedCities"></ul>
+        </div>
+       
+
 
         <section class="col-md-8 card d-none" id="cityweather">
-            <h1>CITY</h1>
+            <h1 id="cityname"></h1>
             <ul>
                 <li id="Temp"></li>
                 <li id="Wind"></li>
@@ -34,8 +39,8 @@
 
     </section>
     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="./assets/js/script.js"></script>
-
 
 </body>
 </html>  

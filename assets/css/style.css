@@ -21,6 +21,22 @@ header {
     background: rgb(2,0,36,.1);
 }
 
+#storedCities {
+    text-align: center;
+    
+    padding: 0; 
+    margin: 0; 
+   
+}
+
+#storedCities li {
+    list-style: none;
+    margin-top: 12px;
+    background-color: rgb(230, 230, 220);
+    border-radius: 7px;  
+}
+
+
 .form-input{
     border-radius: 15px;
     padding: 7px;
