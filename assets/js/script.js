@@ -45,7 +45,7 @@ function renderSearchHistory() {
         })
       storedCities.append(historyCity);
     }
-    
+
 // Clear history button deletes localstorage info 
     const clearHistory= document.createElement("button");
     clearHistory.setAttribute("class", "btn btn-primary mt-3");
@@ -108,7 +108,7 @@ function displayWeather (data) {
         response.json().then(function (data) {
           
         // Icon for current weather
-        weatherPic.setAttribute("src", "https://openweathermap.org/img/wn/" + data.current.weather[0].icon  + ".png");
+        weatherPic.setAttribute("src", "https://openweathermap.org/img/wn/" + data.current.weather[0].icon  + "@2x.png");
         weatherPic.setAttribute("alt", data.current.weather[0].description);
        
         // Temp, Wind, Humidity and UV for current weather
